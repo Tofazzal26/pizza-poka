@@ -1,7 +1,9 @@
+import Banner from "@/Components/Banner/page";
+
 export default function Home() {
   return (
     <div>
-      <h2>Pizza Poka</h2>
+      <Banner />
     </div>
   );
 }
