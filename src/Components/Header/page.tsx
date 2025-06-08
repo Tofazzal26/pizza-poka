@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const Header: React.FC = () => {
   const path = usePathname();
   return (
-    <div className=" bg-base-100 shadow-sm">
+    <div className="shadow-sm fixed top-0 w-full z-20 bg-white">
       <div className="navbar container mx-auto">
         <div className="navbar-start">
           <Link href="/">

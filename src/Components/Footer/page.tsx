@@ -29,8 +29,8 @@ const Footer = () => {
             <div>
               <h2 className="text-white text-xl lg:text-2xl">Book a table</h2>
               <ul className="text-[#aaaaaa] mt-4">
-                <li>Pizza och Sliders foodtruck.</li>
-                <li>Under Om oss kan ni läsa</li>
+                <li>The Pizza and Sliders Truck</li>
+                <li>Pizza & Sliders Street Eats</li>
               </ul>
               <h2 className="text-xl text-[#89b657]">(+88) 01306-700357</h2>
             </div>
@@ -44,8 +44,8 @@ const Footer = () => {
             <div>
               <h2 className="text-white text-xl lg:text-2xl">Address</h2>
               <ul className="text-[#aaaaaa] mt-4">
-                <li>570 8th Ave,</li>
-                <li>New York, NY 10018</li>
+                <li>1200 8th Ave,</li>
+                <li>Dhaka, Bangladesh</li>
               </ul>
             </div>
           </div>
@@ -59,7 +59,7 @@ const Footer = () => {
                 <li>Faq</li>
                 <li>Contact</li>
               </ul>
-              <h2>© 2025 Gloreya. All rights reserved</h2>
+              <h2>© 2025 Pizza Poka. All rights reserved</h2>
             </div>
           </div>
         </div>

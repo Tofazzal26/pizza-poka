@@ -6,7 +6,7 @@ const Connect = () => {
   return (
     <div className="bg-[#89b657] py-2">
       <div className="container mx-auto">
-        <div className="flex lg:flex-row flex-col gap-4 lg:gap-0 justify-between items-center">
+        <div className="flex lg:flex-row flex-col md:flex-row gap-4 lg:gap-0 justify-between items-center">
           <div>
             <h2 className="text-[26px] lg:text-[36px] font-black text-white">
               Let's connect!
@@ -15,7 +15,7 @@ const Connect = () => {
               Sign up for our newsletter & get a 10% off bill offers and
               invites!
             </p>
-            <div className="flex lg:flex-row flex-col items-center gap-2 lg:gap-4">
+            <div className="flex lg:flex-row md:flex-row flex-col items-center gap-2 lg:gap-4">
               <input
                 type="text"
                 className="bg-white rounded-full px-8 lg:py-3 py-[12px] w-[300px] lg:w-[360px] outline-none"

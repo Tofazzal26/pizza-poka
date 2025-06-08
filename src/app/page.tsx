@@ -6,7 +6,7 @@ import WhoAreWe from "@/Components/WhoAreWe/page";
 
 export default function Home() {
   return (
-    <div>
+    <div className="mt-[65px]">
       <Banner />
       <WhoAreWe />
       <Gallery />

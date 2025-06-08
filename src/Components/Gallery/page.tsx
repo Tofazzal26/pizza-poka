@@ -11,7 +11,7 @@ const Gallery = () => {
             Gallery
           </h3>
           <h2 className="text-2xl lg:text-[64px] font-black text-[#29361a]">
-            Vegan gallery
+            Pizza gallery
           </h2>
         </div>
         <section className="mt-5 lg:mt-10">
@@ -67,14 +67,14 @@ const Gallery = () => {
         </section>
         <div>
           <div>
-            <div className="flex lg:flex-row flex-col justify-center items-center gap-4">
+            <div className="flex lg:flex-row md:flex-row flex-col justify-center items-center gap-4">
               <div>
                 <Link href="/pizza">
                   <Image
                     src="/offer1.png"
                     width={605}
                     height={280}
-                    className="h-[280px] w-[605px]"
+                    className="lg:h-[280px] lg:w-[605px]"
                     alt=""
                   />
                 </Link>
@@ -85,14 +85,14 @@ const Gallery = () => {
                     src="/offer2.png"
                     width={605}
                     height={280}
-                    className="h-[280px] w-[605px]"
+                    className="lg:h-[280px] lg:w-[605px]"
                     alt=""
                   />
                 </Link>
               </div>
             </div>
             <div>
-              <div className="flex lg:flex-row flex-col justify-center items-center gap-4 mt-4">
+              <div className="flex lg:flex-row md:flex-row flex-col justify-center items-center gap-4 mt-4">
                 <div>
                   <Link href="/pizza">
                     <Image
