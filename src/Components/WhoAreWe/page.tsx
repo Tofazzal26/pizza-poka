@@ -7,7 +7,7 @@ const WhoAreWe = () => {
       <div className="flex lg:flex-row md:flex-row flex-col justify-center gap-4 lg:gap-8 items-center my-10 lg:my-20">
         <div>
           <Image
-            src="/who.jpg"
+            src="/about1.jpg"
             width={255}
             height={460}
             alt="food"
@@ -29,7 +29,7 @@ const WhoAreWe = () => {
         </div>
         <div>
           <Image
-            src="/who2.jpg"
+            src="/about2.jpg"
             width={255}
             height={460}
             alt="food"
