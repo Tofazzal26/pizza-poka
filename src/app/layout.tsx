@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Barlow } from "next/font/google";
 import "./globals.css";
 import Header from "@/Components/Header/page";
+import Footer from "@/Components/Footer/page";
 
 const barlow = Barlow({ subsets: ["latin"], weight: "600" });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`${barlow.className}`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
