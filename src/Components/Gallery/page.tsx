@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 
 const Gallery = () => {
   return (
@@ -64,6 +65,71 @@ const Gallery = () => {
             </div>
           </div>
         </section>
+        <div>
+          <div>
+            <div className="flex lg:flex-row flex-col justify-center items-center gap-4">
+              <div>
+                <Link href="/pizza">
+                  <Image
+                    src="/offer1.png"
+                    width={605}
+                    height={280}
+                    className="h-[280px] w-[605px]"
+                    alt=""
+                  />
+                </Link>
+              </div>
+              <div>
+                <Link href="/pizza">
+                  <Image
+                    src="/offer2.png"
+                    width={605}
+                    height={280}
+                    className="h-[280px] w-[605px]"
+                    alt=""
+                  />
+                </Link>
+              </div>
+            </div>
+            <div>
+              <div className="flex lg:flex-row flex-col justify-center items-center gap-4 mt-4">
+                <div>
+                  <Link href="/pizza">
+                    <Image
+                      src="/offer3.png"
+                      width={350}
+                      height={255}
+                      className="h-[255px] w-full lg:w-[398px]"
+                      alt=""
+                    />
+                  </Link>
+                </div>
+                <div>
+                  <Link href="/pizza">
+                    <Image
+                      src="/offer4.png"
+                      width={350}
+                      height={255}
+                      className="h-[255px] w-full lg:w-[398px]"
+                      alt=""
+                    />
+                  </Link>
+                </div>
+                <div>
+                  <Link href="/pizza">
+                    <Image
+                      src="/offer5.png"
+                      width={350}
+                      height={255}
+                      className="h-[255px] w-full lg:w-[398px]"
+                      alt=""
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
