@@ -18,7 +18,7 @@ const Footer = () => {
                     height={50}
                     alt="logo"
                   />{" "}
-                  <h2>Pizza Poka</h2>
+                  <h2>Burger Poka</h2>
                 </button>
               </div>
               <p className="text-[#aaaaaa] w-[300px] mt-4">
@@ -29,8 +29,8 @@ const Footer = () => {
             <div>
               <h2 className="text-white text-xl lg:text-2xl">Book a table</h2>
               <ul className="text-[#aaaaaa] mt-4">
-                <li>The Pizza and Sliders Truck</li>
-                <li>Pizza & Sliders Street Eats</li>
+                <li>The Burger and Sliders Truck</li>
+                <li>Burger & Sliders Street Eats</li>
               </ul>
               <h2 className="text-xl text-[#89b657]">(+88) 01306-700357</h2>
             </div>

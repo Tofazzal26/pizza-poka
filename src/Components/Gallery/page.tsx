@@ -11,7 +11,7 @@ const Gallery = () => {
             Gallery
           </h3>
           <h2 className="text-2xl lg:text-[64px] font-black text-[#29361a]">
-            Pizza gallery
+            Burger gallery
           </h2>
         </div>
         <section className="mt-5 lg:mt-10">

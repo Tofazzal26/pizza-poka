@@ -17,7 +17,7 @@ const Banner: React.FC = () => {
                   We Serve <span className="text-[#89b758]">Sensational</span>
                 </h2>
                 <h2 className="text-[#29361a] text-[40px] lg:text-[80px] font-black">
-                  Vegan Fast Food
+                  Burger Fast Food
                 </h2>
               </div>
               <div className="flex justify-center items-center mt-4 lg:mt-10">

@@ -23,7 +23,7 @@ const News = () => {
                   <User size={23} /> GLOREYA
                 </h2>
                 <h2 className="flex items-center gap-2">
-                  <Clock4 size={20} /> 10 , October , 2019
+                  <Clock4 size={20} /> 10 , March , 2025
                 </h2>
               </div>
               <div>
@@ -55,11 +55,11 @@ const News = () => {
                   <User size={23} /> GLOREYA
                 </h2>
                 <h2 className="flex items-center gap-2">
-                  <Clock4 size={20} /> 10 , October , 2019
+                  <Clock4 size={20} /> 10 , April , 2024
                 </h2>
               </div>
               <div>
-                <h2 className="text-2xl">Labor Depar rules</h2>
+                <h2 className="text-2xl">New restaurant town</h2>
                 <p className="text-[#7a7a7a]  my-3 w-[260px]">
                   You’re cooking a meal, especially a holiday meal, to be
                 </p>
@@ -87,11 +87,11 @@ const News = () => {
                   <User size={23} /> GLOREYA
                 </h2>
                 <h2 className="flex items-center gap-2">
-                  <Clock4 size={20} /> 10 , October , 2019
+                  <Clock4 size={20} /> 10 , October , 2024
                 </h2>
               </div>
               <div>
-                <h2 className="text-2xl">Labor Depar rules</h2>
+                <h2 className="text-2xl">Starbucks invests $100M</h2>
                 <p className="text-[#7a7a7a]  my-3 w-[260px]">
                   You’re cooking a meal, especially a holiday meal, to be
                 </p>

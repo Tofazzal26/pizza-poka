@@ -99,16 +99,17 @@ const About = () => {
                     </div>
                     <div>
                       <p className="text-lg lg:text-[24px] w-full lg:w-[400px]">
-                        A small river named Duden flows by their place and
-                        supplies it with the necessary regelialia. It is a
-                        paradisematic country in which
+                        A small stream of data named Ryzen flows by their system
+                        and powers it with the essential processing cores. It is
+                        a tech-topian architecture in which innovation meets
+                        performance.
                       </p>
                       <div className="mt-2">
                         <h2 className="text-lg lg:text-[26px] font-semibold">
-                          Nina Margaret
+                          Himanul Islam
                         </h2>
                         <p className="text-[#7f7f7f] lg:text-base text-sm">
-                          CEO, apple
+                          CEO, AMD
                         </p>
                       </div>
                     </div>

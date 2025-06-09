@@ -18,7 +18,7 @@ const Header: React.FC = () => {
                 height={50}
                 alt="logo"
               />{" "}
-              <h2>Pizza Poka</h2>
+              <h2>Burger Poka</h2>
             </button>
           </Link>
         </div>
@@ -36,10 +36,10 @@ const Header: React.FC = () => {
               <h2 className="text-[12px] lg:text-[14px] font-bold uppercase">
                 {" "}
                 <Link
-                  href="/pizza"
-                  className={path === "/pizza" ? "text-[#89b758]" : ""}
+                  href="/burger"
+                  className={path === "/burger" ? "text-[#89b758]" : ""}
                 >
-                  Pizza
+                  Burger
                 </Link>{" "}
               </h2>
             </li>
@@ -122,10 +122,10 @@ const Header: React.FC = () => {
                   <h2 className="text-[12px] lg:text-[14px] font-bold uppercase">
                     {" "}
                     <Link
-                      href="/pizza"
-                      className={path === "/pizza" ? "text-[#89b758]" : ""}
+                      href="/burger"
+                      className={path === "/burger" ? "text-[#89b758]" : ""}
                     >
-                      Pizza
+                      Burger
                     </Link>{" "}
                   </h2>
                 </li>
