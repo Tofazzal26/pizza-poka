@@ -12,7 +12,7 @@ const OurTeam = () => {
   return (
     <div className="bg-[#fff4e2] mt-10 lg:mt-20">
       <div>
-        <div>
+        <div className="container mx-auto">
           <div className="text-center pt-10 lg:pt-20">
             <h3 className="text-base lg:text-2xl text-[#89b758] uppercase">
               Team
@@ -22,7 +22,7 @@ const OurTeam = () => {
             </h2>
           </div>
           <div className="lg:mt-20 mt-10 pb-10 lg:pb-20">
-            <div className="flex lg:flex-row flex-col justify-center items-center gap-4 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center items-center gap-4 lg:gap-0">
               <div
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
