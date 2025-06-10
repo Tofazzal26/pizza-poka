@@ -21,13 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={`${barlow.className}`}>
-        {/* <AuthProvider> */}
-        <BurgerProvider>
-          <Header />
-          {children}
-          <Footer />
-        </BurgerProvider>
-        {/* </AuthProvider> */}
+        <AuthProvider>
+          <BurgerProvider>
+            <Header />
+            {children}
+            <Footer />
+          </BurgerProvider>
+        </AuthProvider>
       </body>
     </html>
   );
