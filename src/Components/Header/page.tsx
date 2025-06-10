@@ -80,9 +80,11 @@ const Header: React.FC = () => {
                 0
               </span>
             </div>
-            <button className="bg-[#89b758] text-[12px] font-bold uppercase text-white lg:text-[14px] px-5 py-2 rounded-full">
-              Login
-            </button>
+            <Link href="/login">
+              <button className="bg-[#89b758] cursor-pointer text-[12px] font-bold uppercase text-white lg:text-[14px] px-5 py-2 rounded-full">
+                Login
+              </button>
+            </Link>
           </div>
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
