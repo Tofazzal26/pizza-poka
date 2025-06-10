@@ -80,7 +80,7 @@ const Header: React.FC = () => {
                 0
               </span>
             </div>
-            <Link href="/login">
+            <Link href="/api/login">
               <button className="bg-[#89b758] cursor-pointer text-[12px] font-bold uppercase text-white lg:text-[14px] px-5 py-2 rounded-full">
                 Login
               </button>
