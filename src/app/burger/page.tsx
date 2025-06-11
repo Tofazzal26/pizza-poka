@@ -18,6 +18,8 @@ const Burger = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemPerPage] = useState(1);
 
   const handleSearch = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -27,19 +29,46 @@ const Burger = () => {
     setSearch(text);
   };
 
-  const { data: allProduct = [], isLoading: allProductLoading } = useQuery<
-    Product[]
-  >({
-    queryKey: ["allProduct", search, sortOrder, status],
-    queryFn: async (): Promise<Product[]> => {
+  const { data: allProductData, isLoading: allProductLoading } = useQuery({
+    queryKey: [
+      "allProduct",
+      search,
+      sortOrder,
+      status,
+      itemPerPage,
+      currentPage,
+    ],
+    queryFn: async (): Promise<{ data: Product[]; totalProduct: number }> => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct?search=${search}&priceFilter=${sortOrder}&productStatus=${status}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct?search=${search}&priceFilter=${sortOrder}&productStatus=${status}&size=${itemPerPage}&page=${currentPage}`
       );
-      return res.data.data as Product[];
+      return res.data as { data: Product[]; totalProduct: number };
     },
   });
+  const allProduct = allProductData?.data || [];
+  const totalProduct = allProductData?.totalProduct || 0;
 
-  console.log({ sortOrder, status, search });
+  const numberOfPage = Math.ceil(totalProduct / itemPerPage);
+  const pages = [];
+  for (let index = 1; index <= numberOfPage; index++) {
+    pages.push(index);
+  }
+
+  const handleCurrentPage = (crnPage: any) => {
+    setCurrentPage(crnPage);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < numberOfPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div className="mt-[65px]">
@@ -128,58 +157,96 @@ const Burger = () => {
                         <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-[#89b758]"></div>
                       </div>
                     ) : (
-                      <div className="lg:flex-row flex flex-col md:flex-wrap md:flex-row items-center gap-4 lg:gap-8">
-                        {allProduct.map((item, idx) => (
-                          <div className="customShadow" key={idx}>
-                            <div>
-                              <div className="relative">
-                                <Image
-                                  src={item?.image}
-                                  height={400}
-                                  width={400}
-                                  alt=""
-                                  className="h-[230px] w-full "
-                                />
-                                <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] top-0 right-0  absolute">
-                                  <h2 className="text-white">${item?.price}</h2>
+                      <div>
+                        <div className="lg:flex-row flex flex-col md:flex-wrap md:flex-row items-center gap-4 lg:gap-8">
+                          {allProduct.map((item, idx) => (
+                            <div className="customShadow" key={idx}>
+                              <div>
+                                <div className="relative">
+                                  <Image
+                                    src={item?.image}
+                                    height={400}
+                                    width={400}
+                                    alt=""
+                                    className="h-[230px] w-full "
+                                  />
+                                  <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] top-0 right-0  absolute">
+                                    <h2 className="text-white">
+                                      ${item?.price}
+                                    </h2>
+                                  </div>
+                                  {item?.product_status === "Recommended" ? (
+                                    <div className="bg-[#89b758] flex justify-center items-center w-[130px] h-[35px] bottom-0 left-0  absolute">
+                                      <h2 className="text-white">
+                                        {item?.product_status}
+                                      </h2>
+                                    </div>
+                                  ) : (
+                                    <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] bottom-0 left-0  absolute">
+                                      <h2 className="text-white">
+                                        {item?.product_status}
+                                      </h2>
+                                    </div>
+                                  )}
                                 </div>
-                                {item?.product_status === "Recommended" ? (
-                                  <div className="bg-[#89b758] flex justify-center items-center w-[130px] h-[35px] bottom-0 left-0  absolute">
-                                    <h2 className="text-white">
-                                      {item?.product_status}
+                                <div className="px-8 pb-8">
+                                  <div>
+                                    <h2 className="text-2xl mt-4">
+                                      {item?.title}
                                     </h2>
-                                  </div>
-                                ) : (
-                                  <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] bottom-0 left-0  absolute">
-                                    <h2 className="text-white">
-                                      {item?.product_status}
-                                    </h2>
-                                  </div>
-                                )}
-                              </div>
-                              <div className="px-8 pb-8">
-                                <div>
-                                  <h2 className="text-2xl mt-4">
-                                    {item?.title}
-                                  </h2>
-                                  <p className="text-[#7a7a7a]  my-3 w-[260px]">
-                                    {item?.description}
-                                  </p>
-                                  <div className="flex items-center justify-between">
-                                    <button className="font-semibold flex items-center gap-2">
-                                      Add Cart
-                                      <ShoppingCart size={16} color="#89b758" />
-                                    </button>
-                                    <button className="font-semibold flex items-center gap-2">
-                                      Read More{" "}
-                                      <ArrowRight size={18} color="#89b758" />
-                                    </button>
+                                    <p className="text-[#7a7a7a]  my-3 w-[260px]">
+                                      {item?.description}
+                                    </p>
+                                    <div className="flex items-center justify-between">
+                                      <button className="font-semibold flex items-center gap-2">
+                                        Add Cart
+                                        <ShoppingCart
+                                          size={16}
+                                          color="#89b758"
+                                        />
+                                      </button>
+                                      <button className="font-semibold flex items-center gap-2">
+                                        Read More{" "}
+                                        <ArrowRight size={18} color="#89b758" />
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
+                        <div
+                          className={` ${
+                            allProductLoading ? "hidden" : ""
+                          } space-x-2 mt-8 text-center`}
+                        >
+                          <button
+                            onClick={handlePrevPage}
+                            className="bg-[#89b758] px-4 py-2 cursor-pointer text-white rounded-md"
+                          >
+                            Prev
+                          </button>
+                          {pages.map((item, index) => (
+                            <button
+                              key={index + 1}
+                              onClick={() => handleCurrentPage(index + 1)}
+                              className={`border-[1px] cursor-pointer text-base border-[#89b758] px-4 py-2 text-[#89b758] rounded-md ${
+                                currentPage === index + 1
+                                  ? "bg-[#89b758] text-white"
+                                  : ""
+                              }`}
+                            >
+                              {index + 1}
+                            </button>
+                          ))}
+                          <button
+                            onClick={handleNextPage}
+                            className="bg-[#89b758] cursor-pointer px-4 py-2 text-white rounded-md"
+                          >
+                            Next
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>

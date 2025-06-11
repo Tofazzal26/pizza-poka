@@ -9,7 +9,8 @@ export const GET = async (req: Request): Promise<NextResponse> => {
     const search = searchParams.get("search");
     const price = searchParams.get("priceFilter");
     const status = searchParams.get("productStatus");
-    console.log(status, "status");
+    const size = searchParams.get("size");
+    const page = searchParams.get("page");
 
     let query: Record<string, any> = {};
     let sortOption: { [key: string]: 1 | -1 } = {};
@@ -27,12 +28,17 @@ export const GET = async (req: Request): Promise<NextResponse> => {
     } else if (price === "desc") {
       sortOption["price"] = -1;
     }
-
-    const resp = await ProductModel.find(query).sort(sortOption);
-
+    const sizeNumber = Number(size) || 1;
+    const pageNumber = Number(page) || 1;
+    const resp = await ProductModel.find(query)
+      .sort(sortOption)
+      .skip(sizeNumber * (pageNumber - 1))
+      .limit(sizeNumber);
+    const totalProduct = await ProductModel.countDocuments(query);
     return NextResponse.json({
       message: "All Product Get Success",
       data: resp,
+      totalProduct: totalProduct,
       status: 200,
       success: true,
     });
