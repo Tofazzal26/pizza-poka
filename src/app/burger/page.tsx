@@ -1,7 +1,19 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { ArrowRight, Clock4, Search, ShoppingCart, User } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+
+interface Product {
+  image: string;
+  title: string;
+  price: number;
+  description: string;
+  quantity: number;
+  product_status: string;
+}
+
 const Burger = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [status, setStatus] = useState("");
@@ -15,9 +27,19 @@ const Burger = () => {
     setSearch(text);
   };
 
-  console.log({ status });
-  console.log({ sortOrder });
-  console.log({ search });
+  const { data: allProduct = [], isLoading: allProductLoading } = useQuery<
+    Product[]
+  >({
+    queryKey: ["allProduct", search, sortOrder, status],
+    queryFn: async (): Promise<Product[]> => {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/AllProduct?search=${search}&priceFilter=${sortOrder}&productStatus=${status}`
+      );
+      return res.data.data as Product[];
+    },
+  });
+
+  console.log({ sortOrder, status, search });
 
   return (
     <div className="mt-[65px]">
@@ -101,45 +123,65 @@ const Burger = () => {
                     </div>
                   </div>
                   <div className="my-8">
-                    <div className="lg:flex-row flex flex-col md:flex-wrap md:flex-row items-center gap-4 lg:gap-8">
-                      <div className="customShadow">
-                        <div>
-                          <div className="relative">
-                            <Image
-                              src="/berger1.jpg"
-                              height={400}
-                              width={400}
-                              alt=""
-                              className="h-[230px] w-full "
-                            />
-                            <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] top-0 right-0  absolute">
-                              <h2 className="text-white">$200</h2>
-                            </div>
-                          </div>
-                          <div className="px-8 pb-8">
+                    {allProductLoading ? (
+                      <div className="flex justify-center items-center">
+                        <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-[#89b758]"></div>
+                      </div>
+                    ) : (
+                      <div className="lg:flex-row flex flex-col md:flex-wrap md:flex-row items-center gap-4 lg:gap-8">
+                        {allProduct.map((item, idx) => (
+                          <div className="customShadow" key={idx}>
                             <div>
-                              <h2 className="text-2xl mt-4">
-                                Labor Depar rules
-                              </h2>
-                              <p className="text-[#7a7a7a]  my-3 w-[260px]">
-                                You’re cooking a meal, especially a holiday
-                                meal, to be
-                              </p>
-                              <div className="flex items-center justify-between">
-                                <button className="font-semibold flex items-center gap-2">
-                                  Add Cart
-                                  <ShoppingCart size={16} color="#89b758" />
-                                </button>
-                                <button className="font-semibold flex items-center gap-2">
-                                  Read More{" "}
-                                  <ArrowRight size={18} color="#89b758" />
-                                </button>
+                              <div className="relative">
+                                <Image
+                                  src={item?.image}
+                                  height={400}
+                                  width={400}
+                                  alt=""
+                                  className="h-[230px] w-full "
+                                />
+                                <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] top-0 right-0  absolute">
+                                  <h2 className="text-white">${item?.price}</h2>
+                                </div>
+                                {item?.product_status === "Recommended" ? (
+                                  <div className="bg-[#89b758] flex justify-center items-center w-[130px] h-[35px] bottom-0 left-0  absolute">
+                                    <h2 className="text-white">
+                                      {item?.product_status}
+                                    </h2>
+                                  </div>
+                                ) : (
+                                  <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] bottom-0 left-0  absolute">
+                                    <h2 className="text-white">
+                                      {item?.product_status}
+                                    </h2>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="px-8 pb-8">
+                                <div>
+                                  <h2 className="text-2xl mt-4">
+                                    {item?.title}
+                                  </h2>
+                                  <p className="text-[#7a7a7a]  my-3 w-[260px]">
+                                    {item?.description}
+                                  </p>
+                                  <div className="flex items-center justify-between">
+                                    <button className="font-semibold flex items-center gap-2">
+                                      Add Cart
+                                      <ShoppingCart size={16} color="#89b758" />
+                                    </button>
+                                    <button className="font-semibold flex items-center gap-2">
+                                      Read More{" "}
+                                      <ArrowRight size={18} color="#89b758" />
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        ))}
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

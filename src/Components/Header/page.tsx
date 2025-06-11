@@ -121,7 +121,7 @@ const Header: React.FC = () => {
                     </li>
                     <li>
                       <Link
-                        href="/dashboard/MyProfile"
+                        href="/dashboard/my-profile"
                         className="text-sm text-gray-600"
                       >
                         My Profile

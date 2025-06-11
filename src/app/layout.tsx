@@ -6,6 +6,7 @@ import Footer from "@/Components/Footer/page";
 import AuthProvider from "@/AuthProvider/AuthProvider";
 import BurgerProvider from "@/BurgerProvider/BurgerProvider";
 import { Toaster } from "react-hot-toast";
+import QueryProvider from "@/QueryProvider/QueryProvider";
 
 const barlow = Barlow({ subsets: ["latin"], weight: "600" });
 
@@ -23,12 +24,14 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={`${barlow.className}`}>
         <AuthProvider>
-          <BurgerProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
-          </BurgerProvider>
+          <QueryProvider>
+            <BurgerProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </BurgerProvider>
+          </QueryProvider>
         </AuthProvider>
       </body>
     </html>
