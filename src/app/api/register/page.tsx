@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
-
+import { signIn } from "next-auth/react";
 interface FormElements extends HTMLFormControlsCollection {
   name: HTMLInputElement;
   email: HTMLInputElement;
@@ -60,33 +60,31 @@ const Register = () => {
       const image: string = response.data.data.url;
       console.log({ image, name, email, password });
 
-      //   const resp = await axios.post(
-      //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/User`,
-      //     {
-      //       name,
-      //       email,
-      //       password,
-      //       image,
-      //     }
-      //   );
+      const resp = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/User`,
+        {
+          name,
+          email,
+          password,
+          image,
+        }
+      );
 
-      //   if (resp.data.status === 409) {
-      //     toast.error("You already have an account, please log in.");
-      //   }
+      if (resp?.data.status === 409) {
+        toast.error("You already have an account, please log in.");
+      }
 
-      //   if (resp.data.status === 200) {
-      //     const res = await signIn("credentials", {
-      //       email,
-      //       password,
-      //       redirect: false,
-      //     });
-
-      //     if (res.status === 200) {
-      //       route.push("/");
-      //       toast.success("Register Success");
-      //     }
-      //   }
-
+      if (resp?.data.status === 200) {
+        const res = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        if (res?.status === 200) {
+          route.push("/");
+          toast.success("Register Success");
+        }
+      }
       setLoginLoading(false);
     } catch (error) {
       console.error(error);

@@ -77,7 +77,7 @@ const authOptions: NextAuthOptions = {
       const { email } = user;
 
       if (!email) {
-        return "Missing email. Sign-in denied.";
+        return "Missing email";
       }
 
       if (account?.provider === "google" || account?.provider === "github") {

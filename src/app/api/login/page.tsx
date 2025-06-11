@@ -5,9 +5,10 @@ import { Eye, EyeOff, Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormEvent } from "react";
-// import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 const Login = () => {
   const burgerContext = useContext(AuthBurgerPoka);
   if (!burgerContext) {
@@ -16,7 +17,7 @@ const Login = () => {
   const { loading, setLoading } = burgerContext;
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  // const session = useSession();
+  const session = useSession();
 
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
@@ -28,13 +29,20 @@ const Login = () => {
     };
     const email = target.email.value;
     const password = target.password.value;
-    console.log({ email, password });
-
-    // const resp = await signIn("credentials", {
-    //   email,
-    //   password,
-    //   redirect: false,
-    // });
+    setLoading(true);
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    setLoading(false);
+    if (resp?.status === 401) {
+      toast.error("Please enter a valid email and password");
+    }
+    if (resp?.status === 200) {
+      router.push("/");
+      toast.success("Login Success");
+    }
   };
 
   const handleGoogleLogin = async (provider: string): Promise<void> => {
@@ -44,6 +52,11 @@ const Login = () => {
   const handleGithubLogin = async (provider: string): Promise<void> => {
     // await signIn(provider);
   };
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/");
+    }
+  }, [session, router]);
 
   return (
     <div className="mt-[65px]">

@@ -6,7 +6,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-
+import { useSession } from "next-auth/react";
 export interface BurgerContextType {
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +22,9 @@ interface BurgerProviderProps {
 
 const BurgerProvider = ({ children }: BurgerProviderProps) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const session = useSession();
+  console.log(session);
+  console.log(session?.data?.user?.image);
 
   const allBurgerInfo: BurgerContextType = {
     loading,

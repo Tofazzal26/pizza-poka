@@ -3,8 +3,11 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 const Header: React.FC = () => {
   const path = usePathname();
+  const session = useSession();
+
   return (
     <div className="shadow-sm fixed top-0 w-full z-20 bg-white">
       <div className="navbar container mx-auto">
@@ -80,11 +83,70 @@ const Header: React.FC = () => {
                 0
               </span>
             </div>
-            <Link href="/api/login">
-              <button className="bg-[#89b758] cursor-pointer text-[12px] font-bold uppercase text-white lg:text-[14px] px-5 py-2 rounded-full">
-                Login
-              </button>
-            </Link>
+            <div>
+              {session?.status === "authenticated" ? (
+                <div className="dropdown dropdown-end text-black ">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-12 rounded-full">
+                      <Image
+                        src={
+                          session?.data?.user?.image
+                            ? session?.data?.user?.image
+                            : "/user4.png"
+                        }
+                        width={48}
+                        height={48}
+                        alt="Tailwind CSS Navbar component"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                  >
+                    <li>
+                      <a className="text-sm text-gray-600">
+                        {session?.data?.user?.name}
+                      </a>
+                    </li>
+                    <li>
+                      <a className="text-sm text-gray-600">
+                        {session?.data?.user?.email}
+                      </a>
+                    </li>
+                    <li>
+                      <Link
+                        href="/dashboard/MyProfile"
+                        className="text-sm text-gray-600"
+                      >
+                        My Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => signOut()}
+                        className="text-sm text-red-500 cursor-pointer"
+                      >
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              ) : session?.status === "loading" ? (
+                <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-[#89b758]"></div>
+              ) : (
+                <Link href="/api/login">
+                  <button className="bg-[#89b758] cursor-pointer text-[12px] font-bold uppercase text-white lg:text-[14px] px-5 py-2 rounded-full">
+                    Login
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

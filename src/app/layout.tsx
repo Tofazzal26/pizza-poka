@@ -5,6 +5,7 @@ import Header from "@/Components/Header/page";
 import Footer from "@/Components/Footer/page";
 import AuthProvider from "@/AuthProvider/AuthProvider";
 import BurgerProvider from "@/BurgerProvider/BurgerProvider";
+import { Toaster } from "react-hot-toast";
 
 const barlow = Barlow({ subsets: ["latin"], weight: "600" });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
+            <Toaster />
           </BurgerProvider>
         </AuthProvider>
       </body>
