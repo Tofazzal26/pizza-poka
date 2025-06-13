@@ -6,6 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { ArrowRightLeft, Heart, ShoppingCart } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "@/ReduxProvider/CreateSlice/CreateSlice";
+import { RootState } from "@/ReduxProvider/Store/Store";
+import { useSession } from "next-auth/react";
+
 interface Product {
   image: string;
   title: string;
@@ -14,12 +19,16 @@ interface Product {
   quantity: number;
   product_status: string;
   _id: string;
+  email: string;
 }
 
 const ProductDetails = () => {
   const params = useParams();
+  const disPatch = useDispatch();
   const id: string = params?.id as string;
-
+  const count = useSelector((state: RootState) => state.counter.value);
+  const session = useSession();
+  const router = useRouter();
   const { data: SingleProduct, isLoading: SingleProductLoading } = useQuery({
     queryKey: ["singleProduct", id],
     queryFn: async (): Promise<Product> => {
@@ -30,8 +39,54 @@ const ProductDetails = () => {
     },
   });
 
-  const { description, image, price, product_status, title } =
-    SingleProduct || {};
+  const {
+    description = "",
+    image = "",
+    price = 0,
+    product_status = "",
+    title = "",
+    _id = "",
+  } = SingleProduct || {};
+
+  const handleIncrement = () => {
+    disPatch(increment());
+  };
+  const handleDecrement = () => {
+    if (count > 1) {
+      disPatch(decrement());
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (session?.status === "unauthenticated") {
+      return router.push("/api/login");
+    }
+
+    const userEmail: string = session?.data?.user?.email ?? "";
+    let carts: Product[] = JSON.parse(localStorage.getItem("carts") || "[]");
+
+    const existingIndex = carts.findIndex((item) => item._id === _id);
+
+    if (existingIndex !== -1) {
+      carts[existingIndex].quantity += count;
+      localStorage.setItem("carts", JSON.stringify(carts));
+      return toast.success("Quantity increased");
+    }
+    const productData: Product = {
+      description,
+      image,
+      price,
+      product_status,
+      title,
+      _id,
+      quantity: count,
+      email: userEmail,
+    };
+
+    carts.push(productData);
+    localStorage.setItem("carts", JSON.stringify(carts));
+    toast.success("Product added to cart successfully");
+  };
 
   return (
     <div className="mt-[65px]">
@@ -65,18 +120,27 @@ const ProductDetails = () => {
                     </div>
                     <div className="flex items-center gap-4 mt-3">
                       <div className="border-[1px] border-[#e5e5e5]">
-                        <button className="text-lg py-3 cursor-pointer px-6">
+                        <button
+                          onClick={handleDecrement}
+                          className="text-lg py-3 cursor-pointer px-6"
+                        >
                           -
                         </button>
                         <button className="text-lg py-3  px-6 border-x-[1px] border-[#e5e5e5]">
-                          0
+                          {count}
                         </button>
-                        <button className="text-lg py-3 cursor-pointer px-6">
+                        <button
+                          onClick={handleIncrement}
+                          className="text-lg py-3 cursor-pointer px-6"
+                        >
                           +
                         </button>
                       </div>
                       <div>
-                        <button className="text-xl flex items-center gap-2 bg-[#89b758] px-4 py-3 text-white">
+                        <button
+                          onClick={handleAddToCart}
+                          className="text-xl flex  cursor-pointer items-center gap-2 bg-[#89b758] px-4 py-3 text-white"
+                        >
                           <ShoppingCart /> ADD TO CART
                         </button>
                       </div>

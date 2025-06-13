@@ -7,6 +7,7 @@ import AuthProvider from "@/AuthProvider/AuthProvider";
 import BurgerProvider from "@/BurgerProvider/BurgerProvider";
 import { Toaster } from "react-hot-toast";
 import QueryProvider from "@/QueryProvider/QueryProvider";
+import ReduxProvider from "@/ReduxProvider/ReduxProvider";
 
 const barlow = Barlow({ subsets: ["latin"], weight: "600" });
 
@@ -23,16 +24,18 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={`${barlow.className}`}>
-        <AuthProvider>
-          <QueryProvider>
-            <BurgerProvider>
-              <Header />
-              {children}
-              <Footer />
-              <Toaster />
-            </BurgerProvider>
-          </QueryProvider>
-        </AuthProvider>
+        <ReduxProvider>
+          <AuthProvider>
+            <QueryProvider>
+              <BurgerProvider>
+                <Header />
+                {children}
+                <Footer />
+                <Toaster />
+              </BurgerProvider>
+            </QueryProvider>
+          </AuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
