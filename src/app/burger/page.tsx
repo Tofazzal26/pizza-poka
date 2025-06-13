@@ -3,8 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ArrowRight, Clock4, Search, ShoppingCart, User } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 interface Product {
   image: string;
   title: string;
@@ -12,6 +14,7 @@ interface Product {
   description: string;
   quantity: number;
   product_status: string;
+  _id: string;
 }
 
 const Burger = () => {
@@ -20,6 +23,16 @@ const Burger = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(1);
+  const [myCart, setMyCart] = useState<Product[]>([]);
+
+  const router = useRouter();
+  const session = useSession();
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const storedCarts = JSON.parse(localStorage.getItem("carts")) || [];
+  //     setMyCart(storedCarts);
+  //   }
+  // }, []);
 
   const handleSearch = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -68,6 +81,29 @@ const Burger = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  };
+
+  const handleAddToCart = async (prd: Product) => {
+    if (session?.status === "unauthenticated") {
+      return router.push("/api/login");
+    }
+    const userEmail: string = session?.data?.user?.email ?? "";
+    const updatedProduct: Product & { email: string; prdID: string } = {
+      ...prd,
+      email: userEmail,
+      prdID: prd._id,
+      quantity: 1,
+    };
+    let carts: Product[] = JSON.parse(localStorage.getItem("carts") || "[]");
+    const existing = carts.find((item) => item._id === updatedProduct.prdID);
+
+    if (existing) {
+      return toast.error("Product Already Added");
+    }
+    carts.push(updatedProduct);
+    localStorage.setItem("carts", JSON.stringify(carts));
+    setMyCart(carts);
+    toast.success("Product Add to Cart Successfully");
   };
 
   return (
@@ -145,7 +181,7 @@ const Burger = () => {
                       onChange={handleSearch}
                       className="bg-gray-100 outline-none lg:px-8 px-4 py-3 lg:py-4 rounded-none w-full lg:text-base text-sm"
                       type="text"
-                      placeholder="Search by company..."
+                      placeholder="Search by Name..."
                     />
                     <div className="absolute right-3 lg:right-4 cursor-pointer top-3 lg:top-4">
                       <Search className="text-gray-600" />
@@ -159,7 +195,7 @@ const Burger = () => {
                     ) : (
                       <div>
                         <div className="lg:flex-row flex flex-col md:flex-wrap md:flex-row items-center gap-4 lg:gap-8">
-                          {allProduct.map((item, idx) => (
+                          {allProduct?.map((item, idx) => (
                             <div className="customShadow" key={idx}>
                               <div>
                                 <div className="relative">
@@ -198,14 +234,22 @@ const Burger = () => {
                                       {item?.description}
                                     </p>
                                     <div className="flex items-center justify-between">
-                                      <button className="font-semibold flex items-center gap-2">
+                                      <button
+                                        onClick={() => handleAddToCart(item)}
+                                        className="font-semibold flex cursor-pointer items-center gap-2"
+                                      >
                                         Add Cart
                                         <ShoppingCart
                                           size={16}
                                           color="#89b758"
                                         />
                                       </button>
-                                      <button className="font-semibold flex items-center gap-2">
+                                      <button
+                                        onClick={() =>
+                                          router.push(`/burger/${item?._id}`)
+                                        }
+                                        className="font-semibold cursor-pointer flex items-center gap-2"
+                                      >
                                         Read More{" "}
                                         <ArrowRight size={18} color="#89b758" />
                                       </button>
