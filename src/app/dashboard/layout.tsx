@@ -13,6 +13,7 @@ import {
   User,
   ShoppingCart,
   Users,
+  PackagePlus,
 } from "lucide-react";
 export interface UserRole {
   _id: string;
@@ -157,7 +158,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 >
                   <User /> My Profile
                 </Link>
-
+                <Link
+                  href={"/dashboard/add-product"}
+                  className={`${
+                    pathname === "/dashboard/add-product"
+                      ? "bg-green-100 text-green-900 font-semibold"
+                      : "hover:bg-green-50"
+                  } flex text-sm lg:text-lg cursor-pointer items-center gap-2 px-2 py-2 lg:px-4 lg:py-3 w-full rounded-md text-green-900`}
+                >
+                  <PackagePlus /> Add Product
+                </Link>
                 {SingleUserRole?.userRole === "user" ? (
                   <Link
                     href={"/dashboard/my-product"}

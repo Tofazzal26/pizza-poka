@@ -40,8 +40,6 @@ const AdminDashboard = () => {
     },
   });
 
-  console.log(totalData);
-
   return (
     <div>
       <div>

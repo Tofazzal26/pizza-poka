@@ -203,8 +203,8 @@ const Burger = () => {
                                     src={item?.image}
                                     height={400}
                                     width={400}
-                                    alt=""
                                     className="h-[230px] w-full "
+                                    alt="product image"
                                   />
                                   <div className="bg-[#89b758] flex justify-center items-center w-[60px] h-[35px] top-0 right-0  absolute">
                                     <h2 className="text-white">
