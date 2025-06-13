@@ -4,9 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { useContext, useEffect, useState } from "react";
+import { AuthBurgerPoka } from "@/BurgerProvider/BurgerProvider";
+interface Product {
+  image: string;
+  title: string;
+  price: number;
+  description: string;
+  quantity: number;
+  product_status: string;
+  _id: string;
+  email: string;
+}
+
 const Header: React.FC = () => {
   const path = usePathname();
   const session = useSession();
+  const burgerContext = useContext(AuthBurgerPoka);
+  if (!burgerContext) {
+    throw new Error("AuthBurgerPoka must be used within a BurgerProvider");
+  }
+  const { cartItems, setCartItems } = burgerContext;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCarts = JSON.parse(localStorage.getItem("carts") || "[]");
+      setCartItems(storedCarts);
+    }
+  }, []);
+  const totalItems = cartItems?.length || 0;
 
   return (
     <div className="shadow-sm fixed top-0 w-full z-20 bg-white">
@@ -80,7 +105,7 @@ const Header: React.FC = () => {
                 <ShoppingCart size={18} />
               </Link>
               <span className="absolute top-[-10px] text-[10px] bg-[#89b758] flex items-center justify-center rounded-full w-[16px] h-[16px] right-[-10px]">
-                0
+                {totalItems ? totalItems : "0"}
               </span>
             </div>
             <div>

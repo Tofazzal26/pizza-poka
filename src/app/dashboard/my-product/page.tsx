@@ -1,7 +1,8 @@
 "use client";
+import { AuthBurgerPoka } from "@/BurgerProvider/BurgerProvider";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 interface Product {
   image: string;
@@ -14,7 +15,11 @@ interface Product {
   email: string;
 }
 const MyProduct = () => {
-  const [cartItems, setCartItems] = useState<Product[] | null>(null);
+  const burgerContext = useContext(AuthBurgerPoka);
+  if (!burgerContext) {
+    throw new Error("AuthBurgerPoka must be used within a BurgerProvider");
+  }
+  const { cartItems, setCartItems } = burgerContext;
 
   useEffect(() => {
     const storedCarts = localStorage.getItem("carts");
