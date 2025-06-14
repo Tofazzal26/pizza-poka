@@ -12,8 +12,8 @@ import ReduxProvider from "@/ReduxProvider/ReduxProvider";
 const barlow = Barlow({ subsets: ["latin"], weight: "600" });
 
 export const metadata: Metadata = {
-  title: "Pizza-Poka",
-  description: "Pizza Poka Resturant",
+  title: "Burger-Poka",
+  description: "Burger Poka Resturant",
 };
 
 export default function RootLayout({
