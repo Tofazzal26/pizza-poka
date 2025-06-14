@@ -99,12 +99,12 @@ const Header: React.FC = () => {
           <div className="flex items-center gap-4 lg:gap-8">
             <div className="relative">
               <Link
-                href="/cart"
-                className={path === "/cart" ? "text-[#ffb25a]" : ""}
+                href="/dashboard/my-product"
+                className={path === "/my-product" ? "text-[#ffb25a]" : ""}
               >
                 <ShoppingCart size={18} />
               </Link>
-              <span className="absolute top-[-10px] text-[10px] bg-[#89b758] flex items-center justify-center rounded-full w-[16px] h-[16px] right-[-10px]">
+              <span className="absolute top-[-10px] text-[10px] bg-[#89b758] flex items-center justify-center rounded-full w-[16px] cursor-pointer h-[16px] right-[-10px]">
                 {totalItems ? totalItems : "0"}
               </span>
             </div>
