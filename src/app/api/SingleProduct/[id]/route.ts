@@ -1,19 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import ConnectMongoose from "../../../../../lib/ConnectMongoose/ConnectMongoose";
 import ProductModel from "@/ProductModel/ProductModel";
 
-interface Params {
-  id: string;
-}
-
 export const GET = async (
-  request: Request,
-  { params }: { params: Params }
-): Promise<NextResponse> => {
+  req: NextRequest,
+  context: { params: { id: string } }
+) => {
   try {
     await ConnectMongoose();
-    const id = params?.id;
+
+    const id = context.params.id;
+
     if (!id) {
       return NextResponse.json({
         message: "Invalid ID",
@@ -24,6 +22,14 @@ export const GET = async (
 
     const query = { _id: new ObjectId(id) };
     const res = await ProductModel.findById(query);
+
+    if (!res) {
+      return NextResponse.json({
+        message: "Product not found",
+        status: 404,
+        success: false,
+      });
+    }
 
     return NextResponse.json({
       message: "Product Get Success",
@@ -36,7 +42,7 @@ export const GET = async (
       message: "There was a server error",
       status: 500,
       success: false,
-      data: error,
+      error: error,
     });
   }
 };
