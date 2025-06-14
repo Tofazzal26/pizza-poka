@@ -22,17 +22,11 @@ const Burger = () => {
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(1);
+  const [itemPerPage, setItemPerPage] = useState(6);
   const [myCart, setMyCart] = useState<Product[]>([]);
 
   const router = useRouter();
   const session = useSession();
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedCarts = JSON.parse(localStorage.getItem("carts")) || [];
-  //     setMyCart(storedCarts);
-  //   }
-  // }, []);
 
   const handleSearch = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -194,7 +188,10 @@ const Burger = () => {
                       </div>
                     ) : (
                       <div>
-                        <div className="lg:flex-row flex flex-col md:flex-wrap md:flex-row items-center gap-4 lg:gap-8">
+                        <div
+                          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center gap-4 lg:gap-8
+"
+                        >
                           {allProduct?.map((item, idx) => (
                             <div className="customShadow" key={idx}>
                               <div>

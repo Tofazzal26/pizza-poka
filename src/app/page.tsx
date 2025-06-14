@@ -1,5 +1,6 @@
 import Banner from "@/Components/Banner/page";
 import Connect from "@/Components/Connect/page";
+import DownloadApp from "@/Components/DownloadApp/page";
 import Gallery from "@/Components/Gallery/page";
 import News from "@/Components/News/page";
 import OurTeam from "@/Components/OurTeam/page";
@@ -13,7 +14,8 @@ export default function Home() {
       <News />
       <Gallery />
       <OurTeam />
-      <Connect />
+      <DownloadApp />
+      {/* <Connect /> */}
     </div>
   );
 }
