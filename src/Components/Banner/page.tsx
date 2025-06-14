@@ -1,5 +1,6 @@
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Banner: React.FC = () => {
@@ -21,9 +22,11 @@ const Banner: React.FC = () => {
                 </h2>
               </div>
               <div className="flex justify-center items-center mt-4 lg:mt-10">
-                <button className="text-sm lg:text-[15px] flex items-center py-[12px] px-6 lg:py-[14px] lg:px-8 rounded-full gap-2 font-black text-white cursor-pointer uppercase bg-[#89b758]">
-                  <ShoppingCart size={18} /> Order Now
-                </button>
+                <Link href="/burger">
+                  <button className="text-sm lg:text-[15px] flex items-center py-[12px] px-6 lg:py-[14px] lg:px-8 rounded-full gap-2 font-black text-white cursor-pointer uppercase bg-[#89b758]">
+                    <ShoppingCart size={18} /> Order Now
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

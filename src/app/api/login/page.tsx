@@ -46,11 +46,11 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async (provider: string): Promise<void> => {
-    // await signIn(provider);
+    await signIn(provider);
   };
 
   const handleGithubLogin = async (provider: string): Promise<void> => {
-    // await signIn(provider);
+    await signIn(provider);
   };
   useEffect(() => {
     if (session?.status === "authenticated") {

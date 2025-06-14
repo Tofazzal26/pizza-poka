@@ -69,7 +69,7 @@ const Gallery = () => {
           <div>
             <div className="flex lg:flex-row md:flex-row flex-col justify-center items-center gap-4">
               <div>
-                <Link href="/pizza">
+                <Link href="/burger">
                   <Image
                     src="/offer1.png"
                     width={605}
@@ -80,7 +80,7 @@ const Gallery = () => {
                 </Link>
               </div>
               <div>
-                <Link href="/pizza">
+                <Link href="/burger">
                   <Image
                     src="/offer2.png"
                     width={605}
@@ -94,7 +94,7 @@ const Gallery = () => {
             <div>
               <div className="flex lg:flex-row md:flex-row flex-col justify-center items-center gap-4 mt-4">
                 <div>
-                  <Link href="/pizza">
+                  <Link href="/burger">
                     <Image
                       src="/offer3.png"
                       width={350}
@@ -105,7 +105,7 @@ const Gallery = () => {
                   </Link>
                 </div>
                 <div>
-                  <Link href="/pizza">
+                  <Link href="/burger">
                     <Image
                       src="/offer4.png"
                       width={350}
@@ -116,7 +116,7 @@ const Gallery = () => {
                   </Link>
                 </div>
                 <div>
-                  <Link href="/pizza">
+                  <Link href="/burger">
                     <Image
                       src="/offer5.png"
                       width={350}

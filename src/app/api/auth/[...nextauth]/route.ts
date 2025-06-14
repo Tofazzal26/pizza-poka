@@ -54,12 +54,12 @@ const authOptions: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT as string,
-      clientSecret: process.env.GOOGLE_SECRET as string,
+      clientId: process.env.GoogleCLIENT as string,
+      clientSecret: process.env.GoogleSECRET as string,
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: process.env.GitHubClientID as string,
+      clientSecret: process.env.GitHubClientSecret as string,
     }),
   ],
   pages: {

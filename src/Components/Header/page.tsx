@@ -41,7 +41,7 @@ const Header: React.FC = () => {
             <button className="flex uppercase items-center gap-2 text-[18px] cursor-pointer lg:text-[22px]">
               <Image
                 className="lg:w-[50px] lg:h-[50px] w-[40px] h-[40px]"
-                src="/logo1.png"
+                src="/burgerLogoTwo.png"
                 width={50}
                 height={50}
                 alt="logo"
