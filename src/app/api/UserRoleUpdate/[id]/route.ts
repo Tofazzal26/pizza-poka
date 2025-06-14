@@ -5,14 +5,16 @@ import { ObjectId } from "mongodb";
 
 export const PATCH = async (
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   try {
+    const { id } = await params;
+
     await ConnectMongoose();
 
-    const userId = params.id;
     const { userRole } = await req.json();
-    if (!ObjectId.isValid(userId)) {
+
+    if (!ObjectId.isValid(id)) {
       return NextResponse.json({
         message: "Invalid user ID",
         success: false,
@@ -21,7 +23,7 @@ export const PATCH = async (
     }
 
     const updatedUser = await UserModel.findByIdAndUpdate(
-      new ObjectId(userId),
+      new ObjectId(id),
       { userRole },
       { new: true }
     );

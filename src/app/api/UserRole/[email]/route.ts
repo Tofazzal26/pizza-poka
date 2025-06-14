@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import ConnectMongoose from "../../../../../lib/ConnectMongoose/ConnectMongoose";
 import UserModel from "@/UserModel/UserModel";
+
 export const GET = async (
   request: NextRequest,
-  { params }: { params: { email: string } }
+  { params }: { params: Promise<{ email: string }> }
 ): Promise<NextResponse> => {
   try {
+    const { email } = await params;
+
     await ConnectMongoose();
-    const email: string = params?.email;
+
     const query = { email };
     const findUser = await UserModel.findOne(query).select("userRole");
 

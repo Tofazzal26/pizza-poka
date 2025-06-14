@@ -3,14 +3,12 @@ import { ObjectId } from "mongodb";
 import ConnectMongoose from "../../../../../lib/ConnectMongoose/ConnectMongoose";
 import ProductModel from "@/ProductModel/ProductModel";
 
-export const GET = async (
+export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
-) => {
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    await ConnectMongoose();
-
-    const id = context.params.id;
+    const { id } = await params;
 
     if (!id) {
       return NextResponse.json({
@@ -20,10 +18,12 @@ export const GET = async (
       });
     }
 
-    const query = { _id: new ObjectId(id) };
-    const res = await ProductModel.findById(query);
+    await ConnectMongoose();
 
-    if (!res) {
+    const query = { _id: new ObjectId(id) };
+    const product = await ProductModel.findById(query);
+
+    if (!product) {
       return NextResponse.json({
         message: "Product not found",
         status: 404,
@@ -35,14 +35,14 @@ export const GET = async (
       message: "Product Get Success",
       status: 200,
       success: true,
-      data: res,
+      data: product,
     });
   } catch (error) {
     return NextResponse.json({
       message: "There was a server error",
       status: 500,
       success: false,
-      error: error,
+      error,
     });
   }
-};
+}
