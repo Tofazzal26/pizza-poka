@@ -13,7 +13,7 @@ interface IUser extends User {
 }
 
 const authOptions: NextAuthOptions = {
-  secret: process.env.NEXT_SECRET as string,
+  secret: process.env.NEXTAUTH_SECRET as string,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
