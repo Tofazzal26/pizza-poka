@@ -21,8 +21,8 @@ const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        email: {},
+        password: {},
       },
       async authorize(
         credentials: Record<"email" | "password", string> | undefined
