@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Banner from "@/Components/Banner/page";
 import Connect from "@/Components/Connect/page";
 import DownloadApp from "@/Components/DownloadApp/page";

@@ -58,7 +58,7 @@ const Register = () => {
       );
 
       const image: string = response.data.data.url;
-      console.log({ image, name, email, password });
+      // console.log({ image, name, email, password });
 
       const resp = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/User`,

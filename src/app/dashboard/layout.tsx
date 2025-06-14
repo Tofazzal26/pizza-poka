@@ -47,7 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     email as string
   );
 
-  console.log(SingleUserRole?.userRole);
+  // console.log(SingleUserRole?.userRole);
 
   return (
     <div className="">

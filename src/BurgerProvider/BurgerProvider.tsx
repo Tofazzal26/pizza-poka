@@ -37,7 +37,7 @@ const BurgerProvider = ({ children }: BurgerProviderProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const session = useSession();
   const [cartItems, setCartItems] = useState<Product[] | null>(null);
-  console.log(session);
+  // console.log(session);
 
   const allBurgerInfo: BurgerContextType = {
     loading,
